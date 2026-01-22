@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import LogoutButton from "@/components/auth/LogoutButton"
+
 
 export default function Navbar() {
   return (
@@ -26,6 +28,8 @@ export default function Navbar() {
             <Button size="sm" className="rounded-full">
               Get started
             </Button>
+
+            <LogoutButton />
           </div>
         </div>
       </div>

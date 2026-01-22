@@ -3,7 +3,6 @@ import { supabase } from "@/lib/supabase"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 
-
 export default function Signup() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
@@ -12,15 +11,39 @@ export default function Signup() {
 
   const handleSignup = async () => {
     setError(null)
-    const { error } = await supabase.auth.signUp({
+
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     })
 
     if (error) {
-    setError(error.message)
-    return
-  }
+      setError(error.message)
+      return
+    }
+
+    const user = data.user
+
+    if (!user) {
+      setError("No user returned from signup.")
+      return
+    }
+
+    // Skapa profil med samma ID som auth.user.id
+    const { error: profileError } = await supabase.from("profiles").insert({
+      id: user.id,
+      name: email.split("@")[0], // temporärt namn
+      age: 25, // default tills onboarding
+      location: "Unknown",
+      bio: "",
+      image: "",
+      interests: [],
+    })
+
+    if (profileError) {
+      setError(profileError.message)
+      return
+    }
 
     navigate("/discover")
   }

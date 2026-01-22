@@ -10,6 +10,7 @@ import Chat from "@/pages/Chat"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import Login from "@/pages/Login"
 import Signup from "@/pages/Signup"
+import ProfilePage from "@/pages/ProfilePage"
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/chats" element={<ProtectedRoute><Chats /></ProtectedRoute>} />
         <Route path="/chats/:id" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
 
       </Route>
     </Routes>
